@@ -1,0 +1,20 @@
+#database 생성
+mysql>create database aidb default character set 'utf8';
+mysql>use aidb
+
+#user 생성 권한설정
+# aiadmin user생성 모든 데이터베이스 및 안에 테이블에 관하여 모든 권한 제공
+mysql>grant all privileges on *.* to 'aiadmin'@'%' identified by 'password'; 
+myslq>grant select,insert,update,delete on aidb.* to 'aiadmin'@'%';  
+#권한저장
+mysql>flush privileges;  
+#사용자 조회 삭제
+mysql>SELECT host, user FROM mysql.user;
+mysql>DROP USER 'aiadmin'@'%';
+mysql>grant all privileges on *.* to 'aiadmin'@'%' identified by 'password';
+mysql>flush privileges; 
+
+mysql -u aiadmin -p 
+Enter password:password
+aiadmin>use mysql;
+

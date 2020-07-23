@@ -1,0 +1,82 @@
+kibana 로그환경 테스트 
+
+docker search에서 official에 OK 가 되있는건 인증된것 stars는 다운수 
+
+docker [pull] [ISO이름]:[버전]
+docker nginx ISO images = [https://hub.docker.com/_/nginx]
+nginx = 웹서버이다 
+
+kitematic = 이미지 다운받는 곳 다운받으면 run도 같이 됨
+
+docker container -run --name webserver -d -p 80:80 nginx
+도커 컨테이너 실행 웹서버라는 이름으로 컨테이너 인스턴스 생성 
+실행시 나오는 유니크한 값은 도커 내부적으로 쓰는 개별 아이디 
+
+image 삭제 docker rm [이름]
+image 중지 docker stop [이름]
+image 이름변경 docker rename [현재이름] [바꿀이름]
+image 시작 docker start [이름]
+오픈OS 퍼블릭키 
+상세정보(config file) 보기 : docker image inspect [이름]
+docker search ubuntu
+ISO이미지 정보 찾기 : docker search [이름]
+ISO이미지 다운 받기 : docker pull [이름] 
+docker hub 로그인 : docker login [옵션] [서버]
+사용하지 않는 이미지 삭제(다삭제되니까 조심) : docker image prune 
+
+
+docker container run -it --name "test1" centos:7 /bin/cal
+	    -i : interracetive   /bin/cal : 켈린더 불러오기
+	    -t : tty allocate a pseudo-TTY
+docker container run [옵션] --name [실행이름] [이미지이름] [위치]
+
+컨테이너 삭제 : docker container rm [컨테이너이름]
+
+도커 하나의 컨테이너에 여러개의 iso이미지를 사용할 수 있는지 
+
+
+# 센트OS 베쉬쉘 실행
+docker run -it --name COS_shell centos:7 bash 
+
+한번 실행했던건 docker start -i [컨테이너이름]
+
+백그라운드 실행 = Ctrl + p + q
+
+#백그라운드 실행 컨테이너 다시 들어가기 
+docker attach [컨테이너 이름]
+
+리눅스 명령어 : adduser [이름]
+리눅스 명령어 : su [이름] [이름]으로 접속
+
+docker ps [옵션] -q : 컨테이너 이름 띄어줌
+
+docker stop 'docker ps -q` 
+  `  `  `  그래이브 엑센트 묶으면 명령어 하나 더 가능 
+docker start 'docker ps -a -q'
+
+도커에서 리눅스 가능? 
+for index in `docker ps -q` :do docker stop $index:done
+for index in `docker ps -q`;do echo $index; docker stop $index;done
+
+#도커 컨테이너 특정 명령어 실행 exec 
+#bash실행 
+docker exec -it COS_shell bash 
+docker attach COS_shell
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

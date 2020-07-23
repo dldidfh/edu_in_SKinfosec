@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+	
+	<!-- Root Context: defines shared resources visible to all other web components -->
+		<!-- 데이터베이스 접속 정보 빈 객체(dbcp) -->
+		<bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource" destroy-method="close">
+			<property name="driverClassName" value="oracle.jdbc.OracleDriver"/>
+			<property name="url" value="jdbc:oracle:thin:@202.31.243.87:1521:orcl"/>
+			<property name="username" value="scott"></property>
+			<property name="password" value="vkrnrdlek"></property>
+		</bean>
+		<!-- SqlSession 세팅 -->
+		<bean id="sqlSession" class="org.mybatis.spring.SqlSessionFactoryBean">
+			<property name="dataSource" ref="dataSource"/>
+			<property name="mapperLocations" value="classpath*:com/jju_stu/mapper/**/*.xml"/>
+		</bean> 
+		<!-- dao역할을 하는 객체 -->
+		<bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
+			<constructor-arg ref="sqlSession" index="0"></constructor-arg>
+		</bean>
+</beans>

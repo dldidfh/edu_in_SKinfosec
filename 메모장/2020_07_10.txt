@@ -1,0 +1,53 @@
+
+오류 = 프로그램에서 관리하지 못하는 
+
+예외Exception = 프로그램으로 핸들링 가능한 
+	compile 시점 - syntax 오류
+	runtime 시점 
+In python Exception EX:
+try : "posible exception code"
+exception exception progress sentence
+else : nomal flow sentence
+finally : always run sentence
+
+터미네이터에서 터미네이터가 사라코너를 죽이러 오는것 처럼 
+exception처리를 할 때는 자식부터 차근차근 해야 정확하게 Except 처리를 정확하게 할 수 있다.
+Exception >>> IndexError >>> ValueError 순서 Exception 이 1등 
+
+python OS 모듈 C로 작성되서 시스템 정보를 가져옴
+
+from 구문을 이용하면 가져온 변수 또는 함수를 앞에 클래스를 붙이지 않고(math.sin()) 사용가능
+하지만 가독성이 떨어질 수 있음 
+
+random 은 예상 가능할 수 있다. 
+random은 ceed를 추가해서 날씨 또는 아이디번호 등등 으로 예측 하기 힘들게 만든다 
+
+좋은회사의 기준은?
+초봉, 연봉인상률, 인센티브, 복지 
+
+ServiceProvider --- ServiceResistry ----- ServiceConsumer
+Maven Repository ----- ServiceConsumer 
+
+AI 자료를 미분하는 이유 --- 자료의 기울기를 구해서 기울기가 0에 가까울 수록 더욱 정확하다 
+
+@app  ==== annotation ---Framework 에서 불러주기로 약속한 형태 
+
+프레임워크가 기다리는것과 개발자가 무한루프로 기다리는 차이점은? event uniform 
+
+개발자가 스위치문 같은것으로 들어오는 어노테이션에 따라 작동프로그램을 다르게 하는것과의 차이는?
+
+터미널 로그  이벤트   이벤트 소스   이벤트 핸들러 
+
+이벤트 소스 == 이벤트 발생원인의 소스를 연결해 어떤 핸들러를 실행시킬지 연결시켜줌 
+
+이벤트 헨들러 == 이벤트 처리해줌 
+
+왜 제어의 역전이라고 하지?    
+원래 제어의 순서는 어떻게 됬길래
+
+tier = 물리적으로 나누진 계층   -  사용자 접속  ---  중계 서비스 제공자 --- 비즈니스 제공자 
+	
+Layer = 논리적으로 나누어진 계층    데이터 접속 층  --- 서비스 층 -프리젠테이션 층 -- 사용자 인터페이스 층 
+	레이어 중간에 인터페이스를 삽입해 변화에 유동적으로 대응할 수 있다 . 
+
+과제 == 제품번호 상품명 가격  도서 등등 으로 바꿔서 넣기 

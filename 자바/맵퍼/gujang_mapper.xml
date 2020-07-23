@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+							"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="gujang">
+	<select id="get_gujang" resultType="com.jju_stu.beans.GujangBean">
+		<!--구장 검색 결과 가져오기 OOOOOOOOOOOOOOOOOO-->
+		<include refid="pagingHeader"></include>
+		select * from gujang_table 
+		where  gujang_name like '%'||#{search}||'%' or 
+		gujang_addr1 like '%'||#{search}||'%' or 
+		gujang_addr2 like '%'||#{search}||'%'
+		<include refid="pagingFooter"></include>
+	</select>
+	<select id="get_main_gujang" resultType="com.jju_stu.beans.GujangBean">
+		<!--구장 검색 결과 가져오기 OOOOOOOOOOOOOOOOOO-->
+		
+		select * from gujang_table 
+		where  gujang_name like '%'||#{search}||'%' or 
+		gujang_addr1 like '%'||#{search}||'%' or 
+		gujang_addr2 like '%'||#{search}||'%'
+		
+	</select>
+	<select id="get_gujang_cnt" resultType="int">
+		<!--구장 검색 결과 가져오기 OOOOOOOOOOOOOOOOOO-->
+		select count(*) from gujang_table 
+		where  gujang_name like '%'||#{search}||'%' or 
+		gujang_addr1 like '%'||#{search}||'%' or 
+		gujang_addr2 like '%'||#{search}||'%'
+	</select>
+	<select id="get_gujang_pay" resultType="int">
+		<!-- 구장 결제금액을 위한 이용요금 가져오기 -->
+		select gujang_pay from gujang_table
+		where gujang_idx = #{gujang_idx}
+	</select>
+	<select id="get_manager_gujang" resultType="com.jju_stu.beans.GujangBean">
+		<!-- 관리자 내가올린 구장 가져오기OOOOOOOOOOOOOOOOOOOOOOOOO -->
+		<include refid="pagingHeader"></include>
+		select * from gujang_table
+		where gujang_user_idx = #{user_idx}
+		<include refid="pagingFooter"></include>
+	</select>
+	<select id="get_manager_gujang_cnt" resultType="int">
+		<!-- 관리자 내가올린 구장 가져오기OOOOOOOOOOOOOOOOOOOOOOOOO -->
+		select count(*) from gujang_table
+		where gujang_user_idx = #{user_idx}
+	</select>
+	<select id="get_all_gujang" resultType="com.jju_stu.beans.GujangBean">
+		<!-- 구장정보 가져오기 OOOOOOOOOOOOOOOOOOOOOO-->
+		select * from gujang_table
+		where gujang_idx=#{gujang_idx}
+	</select>
+	
+	<insert id="add_gujang" parameterType="com.jju_stu.beans.GujangBean">
+		<!-- 구장 추가하기 OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO-->
+		insert into gujang_table
+			(gujang_idx, gujang_name, gujang_company, gujang_postal, gujang_addr1, gujang_addr2,
+			gujang_img, gujang_sp, gujang_phone1, gujang_phone2, gujang_phone3,
+			gujang_pay, gujang_user_idx, gujang_use_time1, gujang_use_time2)
+			
+			values (gujang_seq.nextval, #{gujang_name}, #{gujang_company},#{gujang_postal},
+			#{gujang_addr1},#{gujang_addr2},#{gujang_img},#{gujang_sp},#{gujang_phone1},#{gujang_phone2},#{gujang_phone3},
+			#{gujang_pay},#{gujang_user_idx},#{gujang_use_time1},#{gujang_use_time2}
+			)
+	</insert>
+	<update id="modify_gujang" parameterType="com.jju_stu.beans.GujangBean">
+	<!-- 구장 수정하기 OOOOOOOOOOOOOOOO -->
+		update gujang_table
+		set gujang_name=#{gujang_name}, gujang_company=#{gujang_company}, gujang_postal=${gujang_postal},
+			gujang_addr1=#{gujang_addr1}, gujang_addr2=#{gujang_addr2}, 
+			gujang_sp=#{gujang_sp}, gujang_phone1=#{gujang_phone1}, gujang_phone2=#{gujang_phone2}, 
+			gujang_phone3=#{gujang_phone3}, gujang_pay=#{gujang_pay}, gujang_use_time1=#{gujang_use_time1}, 
+			gujang_use_time2=#{gujang_use_time2}
+			<if test="gujang_img != null">,gujang_img=#{gujang_img} </if>
+			where gujang_idx = #{gujang_idx}
+	</update>
+	<delete id="delete_gujang" parameterType="com.jju_stu.beans.GujangBean">
+		<!-- 구장 삭제하기 -->
+		delete gujang_table
+		where gujang_idx = #{gujang_idx}
+	</delete>
+	<sql id="pagingHeader">
+		select * from(
+			select rownum as rnum, a.*from(
+	</sql>
+	<sql id="pagingFooter">
+			)A
+		)where rnum between #{min} and #{max}
+	</sql>
+</mapper>
+

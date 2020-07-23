@@ -1,0 +1,107 @@
+Eclipse 2.0RC2, WinXP
+
+Create a C++ project with several folders included.cpp and .h files. Some .cpp 
+and .h file are not in any folders. Select all folders and the .cpp and .h 
+files, right click and select delete. Somehow not all the file being deleted. 
+An error message comes up and "Problems encountered while deleting resources" 
+for org.eclipse.core.resources plug in is seen in the error logs.
+
+Tracing exception in Eclipsse shows that file being deleted is opened by 
+somebody else (a CDT thread?), i.e. attempt to delete the file from Windows 
+Explorer results in the error message "Cannot delete <filename>: It is being 
+used by another person or program." However the file is not used or opened by 
+anyone.
+
+The following is the log info:
+!ENTRY org.eclipse.core.runtime 4 2 Jun 23, 2004 15:58:30.07
+!MESSAGE An internal error occurred during: "C/C++ Indexer".
+!STACK 0
+java.lang.NullPointerException
+ at java.lang.Throwable.<init>(Throwable.java)
+ at java.lang.NullPointerException.<init>(NullPointerException.java:61)
+ at org.eclipse.cdt.internal.core.search.processing.IndexingJob.run
+(IndexingJob.java:60)
+ at org.eclipse.core.internal.jobs.Worker.run(Worker.java)
+
+!ENTRY org.eclipse.ui.ide 4 4 Jun 23, 2004 15:58:30.377
+!MESSAGE Exception in org.eclipse.ui.actions.DeleteResourceAction.run: 
+org.eclipse.core.runtime.CoreException: Multiple problems occurred while 
+deleting resources.
+
+!ENTRY org.eclipse.ui.ide 4 0 Jun 23, 2004 15:58:30.397
+!MESSAGE Multiple problems occurred while deleting resources.
+!STACK 0
+java.lang.Exception
+ at java.lang.Throwable.<init>(Throwable.java)
+ at org.eclipse.ui.actions.DeleteResourceAction.delete
+(DeleteResourceAction.java:325)
+ at org.eclipse.ui.actions.DeleteResourceAction.access$0
+(DeleteResourceAction.java:305)
+ at org.eclipse.ui.actions.DeleteResourceAction$2.execute
+(DeleteResourceAction.java:429)
+ at org.eclipse.ui.actions.WorkspaceModifyOperation$1.run
+(WorkspaceModifyOperation.java:91)
+ at org.eclipse.core.internal.resources.Workspace.run
+(Workspace.java:1673)
+ at org.eclipse.ui.actions.WorkspaceModifyOperation.run
+(WorkspaceModifyOperation.java:105)
+ at org.eclipse.jface.operation.ModalContext$ModalContextThread.run
+(ModalContext.java:101)
+!SUBENTRY 1 org.eclipse.core.resources 4 4 Jun 23, 2004 15:58:30.407
+!MESSAGE Problems encountered while deleting resources.
+!STACK 1
+org.eclipse.core.internal.resources.ResourceException: Problems encountered 
+while deleting resources.
+ at java.lang.Throwable.<init>(Throwable.java)
+ at org.eclipse.core.runtime.CoreException.<init>(CoreException.java:37)
+ at org.eclipse.core.internal.resources.Resource.delete
+(Resource.java:683)
+ at org.eclipse.ui.actions.DeleteResourceAction.delete
+(DeleteResourceAction.java:350)
+ at org.eclipse.ui.actions.DeleteResourceAction.delete
+(DeleteResourceAction.java:314)
+ at org.eclipse.ui.actions.DeleteResourceAction.access$0
+(DeleteResourceAction.java:305)
+ at org.eclipse.ui.actions.DeleteResourceAction$2.execute
+(DeleteResourceAction.java:429)
+ at org.eclipse.ui.actions.WorkspaceModifyOperation$1.run
+(WorkspaceModifyOperation.java:91)
+ at org.eclipse.core.internal.resources.Workspace.run
+(Workspace.java:1673)
+ at org.eclipse.ui.actions.WorkspaceModifyOperation.run
+(WorkspaceModifyOperation.java:105)
+ at org.eclipse.jface.operation.ModalContext$ModalContextThread.run
+(ModalContext.java:101)
+!SUBENTRY 2 org.eclipse.core.resources 4 4 Jun 23, 2004 15:58:30.437
+!MESSAGE Problems encountered while deleting resources.
+!SUBENTRY 3 org.eclipse.core.resources 4 273 Jun 23, 2004 15:58:30.437
+!MESSAGE Could not delete: C:\workspace20041618_2\test1.6\C01_y.h.
+!SUBENTRY 1 org.eclipse.core.resources 4 4 Jun 23, 2004 15:58:30.437
+!MESSAGE Problems encountered while deleting resources.
+!STACK 1
+org.eclipse.core.internal.resources.ResourceException: Problems encountered 
+while deleting resources.
+ at java.lang.Throwable.<init>(Throwable.java)
+ at org.eclipse.core.runtime.CoreException.<init>(CoreException.java:37)
+ at org.eclipse.core.internal.resources.Resource.delete
+(Resource.java:683)
+ at org.eclipse.ui.actions.DeleteResourceAction.delete
+(DeleteResourceAction.java:350)
+ at org.eclipse.ui.actions.DeleteResourceAction.delete
+(DeleteResourceAction.java:314)
+ at org.eclipse.ui.actions.DeleteResourceAction.access$0
+(DeleteResourceAction.java:305)
+ at org.eclipse.ui.actions.DeleteResourceAction$2.execute
+(DeleteResourceAction.java:429)
+ at org.eclipse.ui.actions.WorkspaceModifyOperation$1.run
+(WorkspaceModifyOperation.java:91)
+ at org.eclipse.core.internal.resources.Workspace.run
+(Workspace.java:1673)
+ at org.eclipse.ui.actions.WorkspaceModifyOperation.run
+(WorkspaceModifyOperation.java:105)
+ at org.eclipse.jface.operation.ModalContext$ModalContextThread.run
+(ModalContext.java:101)
+!SUBENTRY 2 org.eclipse.core.resources 4 4 Jun 23, 2004 15:58:30.437
+!MESSAGE Problems encountered while deleting resources.
+!SUBENTRY 3 org.eclipse.core.resources 4 273 Jun 23, 2004 15:58:30.437
+!MESSAGE Could not delete: C:\workspace20041618_2\test1.6\C01_y.h.

@@ -1,0 +1,20 @@
+
+kubernetes 표준 이후 구글 클라우드의 사용률이 올라감 
+
+AWS 인스턴스 만들고 지워야 돈 안낸다
+docker spring cloud 
+
+Spring IO
+
+Cloud Z - SK cloud System
+
+On- premise 은행 주로 씀 은행 점검시간 
+
+MSA 
+Micro Service Architecture = 코딩 과정을 작게 나누어 모듈화 형식으로 프루그래밍
+
+https://gitlab.com/dldidfh2/test_gitbash
+
+
+
+

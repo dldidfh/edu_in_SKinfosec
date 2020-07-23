@@ -1,0 +1,233 @@
+#docker image 검색
+#docker search image명
+docker search nginx
+
+#docker image download
+#docker pull image명
+docker pull nginx
+
+#docker image list
+#docker images  또는 docker image ls
+docker images
+
+#conatiner 실행
+#docker container run --name conatiner-name -d -p port:port image명
+#-d :detach(background로 실행), -p:publish(포트 포워딩)
+docker container run --name webserver -d -p 80:80 nginx
+
+#실행중인 container 확인
+docker ps
+
+#실행중이거나 실행했던 constainer 확인
+docker ps -a
+
+#Exited된 container 삭제
+#docker rm container-name
+docker rm hellworld
+docker ps -a
+
+#container 이름변경
+#docker rename container-name container-rename
+docker reanme webserver web
+docker ps -a
+
+#container 중지
+#docker stop container-name
+docker stop web
+
+#container 실행
+docker start web
+
+#ubuntu, centos:7  image download
+docker pull ubuntu
+docker pull centos:7 #centos:version(tag)
+docker images
+
+#image 상세보기 - image config .Dockerfile 조회
+docker image inspect ubuntu 
+
+#image 삭제 - image사용하는 container가 있을 경우 사용하는 container 삭제 후 삭제
+docker image rm imageID 
+
+#사용하지 않는 image삭제
+docker image prune
+
+#ubuntu, centos:7 conatiner 생성/실행(create/start)
+#centos의 /bin/cal - calendar 실행 -it:표준입출력 사용
+docker run -it --name centos_cal centos:7 /bin/cal
+docker ps -a
+docker run -it --name centos_shell centos:7 /bin/bash //centos:7 bash명령실행 
+root@:/#adduser test1  //test1 user 생성
+root@:/#su test        //test1 user로 변경
+test@:/$ ls -al         //목록보기          
+test@:/$ exit           //root로 가기
+root@:/# exit           //docker 로 가기
+
+docker ps -a            //centos_shell은 exited 상태
+
+root@:/#      //ctrl+p+q docker 로 가기
+docker ps -a            //centos_shell은 Up 상태 
+docker attach centos_shell  //root로 
+또는 docker exec -it centos_shell bash
+root@:/#cat /etc/issue  //centos 버전확인
+root@:/#ctrl+p+q
+
+
+#ubuntu 실행 확인
+docker run -it --name ubuntu_shell ubuntu /bin/bash
+root@:/#cat /etc/issue  //ubuntu 버전확인 - centos와 비교
+root@:/#adduser user1  //user생성
+root@:/#passwd root  //root계정 암호설정
+root@:/#
+root@:/# ctrl+p+q
+
+
+docker ps  //web,ubuntu_shell, centos_shell 실행 중
+docker ps -q //실행중인 container id만 출력
+docker stop `docker ps -q` //실행중인 id 모두 stop
+docker start `docker ps -a -q` //모든 container start
+docker ps
+for index in `docker ps -q`;do echo $index; done //실행중인 container id list
+for index in `docker ps -q`;do echo $index; docker stop $index;done //실행중인 id 모두 stop
+
+#docker image 만들기
+#docker build [option] [image이름]:[버전정보] [Dockerfile위치]
+docker build -t nodeweb:1 .  
+docker images   //node:7, nodeweb image 생성확인
+
+#생성한 이미지 container 생성/실행
+docker run --name nodeserver -d -p 80:80 nodeweb:1
+docker ps
+curl localhost  //WebBrower http://localhost
+
+#constiner 확인
+docker exec -it nodeserver bash
+root@:/#cat /etc/issue
+
+#copy : container-host
+docker cp nodeserver:app.js ./containerapp.js
+  
+#copy ; host - container
+docker cp ./test.txt nodeserver:test.txt
+
+#base image : ubuntu  nginx설치 image build
+#index.html welcome page작성
+<!DOCTYPE html>
+<html>
+    <header>
+        <title>Docker Image Build Test</title>
+    </header>
+    <body>
+       <h1>Welcome nginx</h1>
+    </body>
+</html>
+#Dockerfile 작성
+FROM ubuntu:latest
+RUN apt-get update && apt-get install -y -q nginx
+COPY index.html /var/www/html/
+CMD ["nginx", "-g","daemon off;"]
+
+
+#image생성
+docker build -t unginxweb:1 .
+
+#image 확인
+docker images
+
+#container 생성 및 실행
+docker run --name unginxserver -d -p 80:80 unginxweb:1
+curl localhost
+
+#bash 실행
+docker exec -it unginxserver bash
+@root# ls -al /var/www/html/  //index.html확인
+@root# exit
+curl localhost
+
+#mysql 
+#mysql image download
+docker pull mysql:5.7
+docker images
+
+#container 생성/실행
+docker run --name mysql5 -e MYSQL_ROOT_PASSWORD=password -d -p 3306:3306 mysql:5.7
+docker ps
+
+#conatiner 명령실행
+docker exec -it mysql5 bash
+@root#cat /etc/issue  //Debia 10
+@root#whereis mysql
+@root#mysql -u root -p
+Enter Password : password
+mysql>show databases;    //mysql shell에서 databases 확인
+mysql>use mysql;         //mysql db 사용
+mysql>quit;              //mysql shell 종료
+@root#exit;              //bash shell 종료
+
+
+#centos base image에 mariadb 설치하기
+#cetos_mariadb.zip download 압축풀기
+~\centos_mariadb>docker build -t ai/mariadb55:1
+docker images //확인
+#container 생성
+docker run --name=mariadb -d -p 3306:3306 -e MYSQL_ROOT_PASSWORD=password ai/mariadb55:1
+docker ps
+docker exec -it mariadb bash
+@bash$mysql -u root -p
+Enter Password : password
+mysql>show databases;    //mysql shell에서 databases 확인
+mysql>use mysql;         //mysql db 사용
+mysql>quit;              //mysql shell 종료
+@bash$exit;              //bash shell 종료
+
+
+
+#centos base image에 mongodb 설치하기
+#cetos_mongodb.zip download 압축풀기
+~\centos_mogndb>docker build -t ai/mongodb:1 .
+
+#container 생성
+docker run --name=mongodb -d -p 27017:27017 ai/mongodb:1
+docker ps
+dcoker exec -it mongodb bash
+@root#ls -al  //data/db 폴더확인
+@root#ls -al /user/bin/mongod 확인
+
+
+pod.yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx
+  labels:
+    name: nginx
+spec:
+  containers:
+  - name: nginx
+    image: hifrodo/nginx:v1
+    ports:
+      - containerPort: 80
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

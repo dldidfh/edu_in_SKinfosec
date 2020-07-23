@@ -1,0 +1,31 @@
+L4 = 로드벨런싱 보통round-robin 으로 쉽게 만들 수 있다 
+L7 = 로드벨런싱 
+AWS = Elastic Load Balancer ELB
+HAproxy = standby로 변경되면서 1초의 시간 필요할 수도 
+standby 서버 , 엑티브 서버 두가지로 이중화 하여 로드벨런싱이라기 보단 서버운영 안정성 측면에서 사용
+한번 지나간 주소는 쿠키(캐싱)로 관리하여 빠르게 응답 하고 
+
+
+
+view = UI 
+presentation = controller  데이터 검증 
+service = data 처리
+data access = DB, 입출력 
+
+docker window pro 는 docker desktop 설치 
+
+hyper-v 체크 안되있어야 되고 가상화 지원해야함 
+서버 가상화는 무겁지만 docker를 이용하여 
+★★★★★★★★★★★★★
+★★★★★UNIX ★★★★★
+★★★★★★★★★★★★★
+
+digest는 보통 hash algorism 압축 sha256
+
+도커 데몬은 도커서버에 올라가있고 도커 클라이언트는 
+
+도커데몬 컨테이너 생성 
+
+도커또한 push 하는데 이것도 클라우드인가? 
+
+	

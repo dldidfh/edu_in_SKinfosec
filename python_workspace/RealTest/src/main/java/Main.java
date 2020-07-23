@@ -1,0 +1,23 @@
+import java.io.File;
+import java.io.IOException;
+import java.nio.charset.Charset;
+import java.nio.file.Files;
+import java.util.List;
+
+public class Main {
+    public static void main(String[] args) throws IOException {
+        // Read file
+        File file = new File("Data\\bugNum.txt");
+        String inputText = Files.readString(file.toPath(), Charset.forName("ISO-8859-1"));
+        String outputText = RegExHelper.makeLinuxNewlines(inputText);
+        StackTraceFilter stacktraceFilter = new StackTraceFilter();
+        List<StackTrace> traces = stacktraceFilter.runFilter(outputText);
+        for (StackTrace st: traces) {
+            System.out.println("------------------------------------------");
+            System.out.println(st.getException());
+            //System.out.println(st.getFoundFrames()); // 의미가 없을거 같음
+          //  System.out.println(st.getReason()); //의미가 없을 것 같음
+            System.out.println("------------------------------------------");
+        }
+    }
+}

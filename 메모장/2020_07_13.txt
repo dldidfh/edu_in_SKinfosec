@@ -1,0 +1,14 @@
+Abstraction 추상화 		현실세계의 것을 얼마나 잘 프로그래밍 세계로 옴겼는가  --- 생성자(메모리에 데이터 담을 공간 생성) --- 프로그램에 필요한 내용만 뽑아내는 것 
+Encapsulation 캡슐화		
+znheritance 상속			부모가 자식에게 상속 --- 부모의것을 자식이 사용 가능 자식으로 내려가면서 점점 자세히 표현 가능 자식에서 부모 Generalization  부모에서 자식 Specialization
+poly morphism 다형성 
+Responsibillity 의존도가 낮을 수록 high closien 응집도가 높아진다 -- 
+
+class 초기화 ==   __init__    잘 쓰자 초기화 잘 하자 
+
+self 현재 객체 
+객체object는 unique 한 특성을 가지고 있다 
+객체는 생성자가 불릴때 마다 객체가 생성되기에 속성을 바꾸기 위해서는 특정 속성을 지정하여 변경하여야 한다 
+
+클래스에서 받는 매개변수 없이 getConnection 에서 DB별로 사용하는 것처럼 하는 것이 인터페이스 
+엘라스틱 search  github 

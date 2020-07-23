@@ -1,0 +1,30 @@
+#pod.yaml
+kind: Service
+apiVersion: v1
+metadata:
+  name:  nginx-svc
+spec:
+  selector:
+    app:  nginx
+  type:  LoadBalancer
+  ports:
+  - name:  nginx
+    port:  80
+    targetPort:  8080
+
+---
+
+apiVersion: v1    #docker tag (version info)
+kind: Pod         #kube object  -Pod. Service, ReplicaSet , ReplicaControll, Deployment
+metadata:         # kind Pod의 식별자 identifier  정의 
+  name: nginx     #
+  labels:
+    name: nginx
+spec:             # Kind Pod 의 포함되는 container 정보 
+  containers:
+  - name: nginx
+    image: hifrodo/nginx:v1
+    ports:
+      - containerPort: 80
+
+
