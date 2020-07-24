@@ -70,7 +70,6 @@ def UserList():                                     #유저 정보 보기 함수
 
 
 def UserSearch(UserName):                           #유저 검색 함수 
-    #print(UserDB)
     if UserDB is not None:
         for i , dic_a in enumerate(UserDB):             # enumerate로 쪼개 i만큼 돌때 dic_a에 UserDB[i]를 집어넣는다
             if dic_a["UserName"] == UserName:           # 만약 위에서 쪼갠 dic_a의 UserName 과 입력받은 UserName이 같다면 If문을 실행 시킨다
@@ -78,13 +77,8 @@ def UserSearch(UserName):                           #유저 검색 함수
     #elif UserDB is None: 
     return -1
 def F_UserDel(UserName):                            # 유저 삭제 함수
-    #UserDelInfo = UserSearch(UserName)
-    #print(UserDelInfo)
-    #del(UserDelInfo)
     dic_Del = UserSearch(UserName)                  # dic_Del 에 유저 검색 함수에서 찾은 인덱스를 저장한다 0~N
     del(UserDB[dic_Del])                            # 입력받은 인덱스 정보로 UserDB의 dic_Del 인덱스 번째 정보를 삭제한다
-    # UserDB.pop(인덱스) 또는 UserDB.remove(UserDB[인덱스])
-
     return print("성공")
 
 def UserModify(UserName):                               # 유저 수정 함수
@@ -93,8 +87,7 @@ def UserModify(UserName):                               # 유저 수정 함수
     UserModiMajor = input("수정할 전공을입력해 주세요")
     UserModiInfo =UserDB[UserModIndex]                  # UserDB의 인덱스 번째 정보를 dictionary에 저장한다 ( 리스트의 주소값이 저장된다)
     UserModiInfo["UserAge"] = UserModiAge               # 각각 키와 맞는 정보를 입력받은 값으로 변경한다
-    UserModiInfo["UserMajor"] = UserModiMajor           # 위와 같음
-    #return UserModiInfo    
+    UserModiInfo["UserMajor"] = UserModiMajor           # 위와 같음 
     return print("성공")
 
 def UserNameSearch(UserName):                           # 유저 이름으로 특정 인원 검색
@@ -109,17 +102,13 @@ def CloseData():
             print()
         else: 
             for i,v in enumerate(UserDB):
-                #print(UserDB[i]["UserName"])
-                # FileUserName = str(UserDB[i]["UserName"])
-                # FileUserAge = str(UserDB[i]["UserAge"])
-                # FileUserMajor = str(UserDB[i]["UserMajor"])
                 if i == len(UserDB)-1:
                    
                     file.write("{0}번째 | {1},{2},{3}".format(i, v["UserName"],v["UserAge"],v["UserMajor"]))
                 else:
                     
                     file.write("{0}번째 | {1},{2},{3}\n".format(i, v["UserName"],v["UserAge"],v["UserMajor"]))
- #  save_file.write("{0}번째 | {1},{2},{3}\n".format(index, value["name"],value["age"],value["major"]))
+
 
 UserDB = ReadData()
 while True :
