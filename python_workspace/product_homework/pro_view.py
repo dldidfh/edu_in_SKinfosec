@@ -89,8 +89,8 @@ class ProRegist(tk.Frame):
     def duplication(self,proName):
         ProController.duplication_pro_name(self,proName)
 
-    def regist_product(self,proEntity):
-        ProController.register_controller(self,ProEntity)
+    def regist_product(self,pro_entity):
+        ProController.register_controller(self,pro_entity)
 
 class ProShowList(tk.Frame):
     def __init__(self, master):
@@ -100,7 +100,7 @@ class ProShowList(tk.Frame):
         tk.Frame.configure(self,bg='red')
         tk.Label(self, text="제품 리스트", font=('Helvetica', 18, "bold")).pack(side="top", fill="x", pady=5)
         listbox = tk.Listbox(self, selectmode='extended', height=0)
-        for i, value in product_list:
+        for i, value in enumerate(product_list):
             listbox.insert(i,value)
         tk.Button(self, text="첫화면으로",
                   command=lambda: master.switch_frame(StartPage)).pack()
@@ -117,7 +117,7 @@ class ProModify(tk.Frame):
         proName = tk.Entry(frame1)
         proName.pack(fill="x", padx=10, expand=True)
         inputName = proName.get()
-        btnDupl =  tk.Button(frame1, text="제품명 확인",width=10, command=self.duplication(inputName))
+        btnDupl =  tk.Button(frame1, text="제품명 확인",width=10, command=ProRegist.duplication(self,inputName))
         btnDupl.pack(side="left", padx=10, pady=10)
 
         frame2 = tk.Frame(self)
@@ -141,7 +141,7 @@ class ProModify(tk.Frame):
         proSize.pack(fill="x", padx=10,expand=True)
         inputSize = proSize.get()
 
-        # 저장
+    
         ProEntity(inputName,inputPrice,inputWeight,inputSize)
         frame5 = tk.Frame(self)
         frame5.pack(fill="x")
@@ -149,11 +149,11 @@ class ProModify(tk.Frame):
         btnSave.pack(side="left", padx=10, pady=10)
         tk.Button(frame5, text="첫화면으로",
                   command=lambda: master.switch_frame(StartPage),width=10).pack(padx=10, pady=10)
-    def duplication(self,proName):
-        ProController.duplication_pro_name(self,proName)
+    # def duplication(self,proName):
+    #     ProController.duplication_pro_name(self,proName)
 
-    def product_update(self,ProEntity):
-        ProController.update_controller(self,ProEntity)
+    def product_update(self,pro_entity):
+        ProController.update_controller(self,pro_entity)
 
 class ProDelete(tk.Frame):
     def __init__(self, master):
@@ -166,7 +166,7 @@ class ProDelete(tk.Frame):
         tk.Label(frame1, text="제품명", width=10).pack(side="left", padx=10, pady=10)
         proName = tk.Entry(frame1)
         proName.pack(fill="x", padx=10, expand=True)
-        btnDupl =  tk.Button(frame1, text="삭제",width=10, command=self.product_delete(self,proName))
+        btnDupl =  tk.Button(frame1, text="삭제",width=10, command=self.product_delete(proName))
         btnDupl.pack(side="left", padx=10, pady=10)
 
         tk.Button(self, text="첫화면으로",
@@ -199,9 +199,3 @@ class ProSearchAsName(tk.Frame):
 def MessageBox(self,message):
     tk.messagebox.showinfo("결과",message=message)
     
-
-# class ProClose(tk.Frame):
-#     def __init__(self, master):
-#         print("종료")
-#         sys.exit()
-       

@@ -21,7 +21,7 @@ class ProStore:
 
         try:
             with ProStore.connection.cursor() as cursor:
-                sql = """INSERT INTO `member` (`proName`,`proPrice`, `proWeight`, `proSize`) 
+                sql = """INSERT INTO `product` (`proName`,`proPrice`, `proWeight`, `proSize`) 
                         VALUES (%s,%s,%s,%s)"""
                 cursor.execute(sql, (proBean.proName,proBean.proPrice,proBean.proWeight,proBean.proSize))
                 ProStore.connection.commit()
@@ -31,7 +31,7 @@ class ProStore:
     def select_all(self):
         try:
             with ProStore.connection.cursor() as cursor:
-                sql = """select * from `member`"""
+                sql = """select * from `product`"""
                 cursor.execute(sql)
                 result = cursor.fetchall()
                 
@@ -42,7 +42,7 @@ class ProStore:
     def update(self,proBean):
         try:
             with ProStore.connection.cursor() as cursor:
-                sql = """update `member` set `proName`=%s, `proPrice`=%s, `proSize`=%s where `proWeight`=%s"""
+                sql = """update `product` set `proName`=%s, `proPrice`=%s, `proSize`=%s where `proWeight`=%s"""
                 cursor.execute(sql, (proBean.proName,proBean.proPrice,proBean.proSize,proBean.proWeight))
                 ProStore.connection.commit()
         finally:
@@ -51,7 +51,7 @@ class ProStore:
     def delete(self,proName):
         try:
             with ProStore.connection.cursor() as cursor:
-                sql = """delete from `member` where `proName`=%s"""
+                sql = """delete from `product` where `proName`=%s"""
                 cursor.execute(sql, (proName))
                 ProStore.connection.commit()
         finally:
@@ -61,7 +61,7 @@ class ProStore:
     def select_by_proName(self,proName):
         try:
             with ProStore.connection.cursor() as cursor:
-                sql = """select * from `member` where `proName`=%s"""
+                sql = """select * from `product` where `proName`=%s"""
                 cursor.execute(sql,proName)
                 result = cursor.fetchone()
                 
